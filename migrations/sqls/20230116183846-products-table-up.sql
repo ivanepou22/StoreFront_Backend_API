@@ -1,8 +1,7 @@
 CREATE TABLE products(
     id SERIAL PRIMARY KEY,
     name VARCHAR(50),
-    unit_price FLOAT,
-    username VARCHAR(20) NOT NULL,
+    price DECIMAL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
