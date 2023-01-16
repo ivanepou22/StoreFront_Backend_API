@@ -26,7 +26,6 @@ export type UserUpdate = {
   username?: string;
   email?: string;
   role?: string;
-  password?: string;
   created_at?: Date;
   updated_at?: Date;
 };
@@ -35,7 +34,7 @@ export class UserStore {
   async index(): Promise<User[]> {
     try {
       const sql =
-        'SELECT first_name, last_name, username,email,role,created_at,updated_at FROM users';
+        'SELECT id,first_name, last_name, username,email,role,created_at,updated_at FROM users';
       const result = await client.query(sql);
       return result.rows;
     } catch (err) {
@@ -46,7 +45,7 @@ export class UserStore {
   async show(id: string): Promise<User> {
     try {
       const sql =
-        'SELECT first_name, last_name, username,email,role,created_at,updated_at FROM users WHERE id=($1)';
+        'SELECT id,first_name, last_name, username,email,role,created_at,updated_at FROM users WHERE id=($1)';
       const result = await client.query(sql, [id]);
       return result.rows[0];
     } catch (err) {
@@ -72,7 +71,7 @@ export class UserStore {
         parseInt(saltRounds)
       );
       const sql =
-        'INSERT INTO users (first_name, last_name, username, password,email,role,) VALUES ($1, $2, $3, $4,$5,$6) RETURNING *';
+        'INSERT INTO users (first_name, last_name, username, password,email,role) VALUES ($1, $2, $3, $4,$5,$6) RETURNING *';
       const result = await client.query(sql, [
         u.first_name,
         u.last_name,
@@ -112,6 +111,18 @@ export class UserStore {
         updates.push(`last_name = $${values.length + 1}`);
         values.push(u.last_name);
       }
+      if (u.username) {
+        updates.push(`username = $${values.length + 1}`);
+        values.push(u.username);
+      }
+      if (u.email) {
+        updates.push(`email = $${values.length + 1}`);
+        values.push(u.email);
+      }
+      if (u.role) {
+        updates.push(`role = $${values.length + 1}`);
+        values.push(u.role);
+      }
 
       values.push(id);
 
@@ -120,10 +131,9 @@ export class UserStore {
                    WHERE id = $${values.length}
                    RETURNING *`;
       const result = await client.query(sql, values);
-      const updatedUser = result.rows[0];
+      const updatedUser: UserUpdate = result.rows[0];
       return updatedUser;
     } catch (err) {
-      console.log(err);
       throw new Error(`Could not update user ${u.id}. Error: ${err}`);
     }
   }

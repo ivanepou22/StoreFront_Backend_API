@@ -73,8 +73,25 @@ export const updateUser = async (
     if (req.body.last_name) {
       user.last_name = req.body.last_name;
     }
+    if (req.body.username) {
+      user.username = req.body.username;
+    }
+    if (req.body.email) {
+      user.email = req.body.email;
+    }
+    if (req.body.role) {
+      user.role = req.body.role;
+    }
+
     const updatedUser = await store.update(req.params.id, user);
-    res.json(updatedUser);
+    res.json({
+      first_name: updatedUser.first_name,
+      last_name: updatedUser.last_name,
+      username: updatedUser.username,
+      email: updatedUser.email,
+      role: updatedUser.role,
+      updated_at: updatedUser.updated_at
+    });
   } catch (err) {
     res.status(400);
     res.json(err);
@@ -113,6 +130,7 @@ export const createUser = async (
     const token = generateJWT(payload, process.env.TOKEN_SECRET);
     res.json({ token });
   } catch (err) {
+    console.log(err);
     res.status(400);
     res.json(err);
   }

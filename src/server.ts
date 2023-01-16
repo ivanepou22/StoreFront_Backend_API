@@ -5,8 +5,8 @@ import routes from './routes';
 
 dotenv.config();
 const app: express.Application = express();
-const address: string = '0.0.0.0:3000';
 const PORT = process.env.PORT;
+const address: string = `127.0.0.1:${PORT}`;
 
 app.use(bodyParser.json());
 
