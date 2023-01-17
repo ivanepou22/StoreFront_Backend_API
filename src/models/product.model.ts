@@ -19,7 +19,7 @@ export class ProductStore {
       const result = await client.query(sql);
       return result.rows;
     } catch (err) {
-      throw new Error(`Cannot get Product ${err}`);
+      throw new Error(`Cannot get Products ${err}`);
     }
   }
 
