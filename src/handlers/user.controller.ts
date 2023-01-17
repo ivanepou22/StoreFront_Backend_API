@@ -46,7 +46,7 @@ export const getUserByUsername = async (
   }
 };
 
-//delete a course
+//delete a user
 export const deleteUser = async (
   req: Request,
   res: Response
@@ -130,7 +130,6 @@ export const createUser = async (
     const token = generateJWT(payload, process.env.TOKEN_SECRET);
     res.json({ token });
   } catch (err) {
-    console.log(err);
     res.status(400);
     res.json(err);
   }
