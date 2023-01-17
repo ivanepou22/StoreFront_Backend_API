@@ -8,15 +8,16 @@ import {
   createUser,
   authenticate
 } from '../../handlers/user.controller';
+import { verifyJWTToken } from '../../middleware/jwt.middleware';
 
 const users = express.Router();
 
-users.get('/users', getUsers);
-users.get('/user/:id', getUserById);
-users.get('/user/username/:username', getUserByUsername);
-users.delete('/user/:id', deleteUser);
-users.patch('/user/:id', updateUser);
-users.post('/user', createUser);
+users.get('/users', verifyJWTToken, getUsers);
+users.get('/users/:id', verifyJWTToken, getUserById);
+users.get('/users/username/:username', verifyJWTToken, getUserByUsername);
+users.delete('/users/:id', verifyJWTToken, deleteUser);
+users.patch('/users/:id', verifyJWTToken, updateUser);
+users.post('/users', createUser);
 users.post('/login', authenticate);
 
 export default users;

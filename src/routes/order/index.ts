@@ -6,13 +6,14 @@ import {
   createOrder,
   updateOrder
 } from '../../handlers/order.controller';
+import { verifyJWTToken } from '../../middleware/jwt.middleware';
 
 const orders = express.Router();
 
-orders.get('/orders', getOrders);
-orders.get('/order/:id', getOrderById);
-orders.delete('/order/:id', deleteOrder);
-orders.patch('/order/:id', updateOrder);
-orders.post('/order', createOrder);
+orders.get('/orders', verifyJWTToken, getOrders);
+orders.get('/orders/:id', verifyJWTToken, getOrderById);
+orders.delete('/orders/:id', verifyJWTToken, deleteOrder);
+orders.patch('/orders/:id', verifyJWTToken, updateOrder);
+orders.post('/orders', verifyJWTToken, createOrder);
 
 export default orders;
