@@ -48,7 +48,7 @@ export class UserStore {
         'SELECT id,first_name, last_name, username,email,role,created_at,updated_at FROM users WHERE id=($1)';
       const result = await client.query(sql, [id]);
       return result.rows[0];
-    } catch (err) {
+    } catch (err: unknown) {
       throw new Error(`Could not find the user ${id} Error: ${err}`);
     }
   }

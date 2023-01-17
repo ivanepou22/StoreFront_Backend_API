@@ -6,8 +6,11 @@
   "scripts": {
     "start": "nodemon src/server.ts",
     "watch": "tsc-watch --esModuleInterop src/server.ts --outDir ./build --onSuccess \"node ./build/server.js\"",
-    "test": "jasmine-ts",
-    "tsc": "tsc"
+    "jasmine": "jasmine",
+    "test": "npm run build && npm run jasmine",
+    "build": "tsc",
+    "lint": "eslint --ignore-path .gitignore --ext .ts",
+    "prettier": "prettier --config .prettierrc --write src/**/*.ts"
   },
   "author": "Ivan Epou",
   "license": "ISC",

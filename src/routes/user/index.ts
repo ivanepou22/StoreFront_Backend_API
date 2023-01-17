@@ -18,6 +18,6 @@ users.get('/users/username/:username', verifyJWTToken, getUserByUsername);
 users.delete('/users/:id', verifyJWTToken, deleteUser);
 users.patch('/users/:id', verifyJWTToken, updateUser);
 users.post('/users', createUser);
-users.post('/login', authenticate);
+users.post('/users/login', authenticate);
 
 export default users;
