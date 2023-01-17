@@ -53,7 +53,13 @@ describe('1. Testing the user model Methods', () => {
     expect(result.username).toEqual('ivanepou');
   });
 
-  it('1.9 authenticate method should be true', async function (): Promise<void> {
+  it('1.9 update method should return the updated user', async function (): Promise<void> {
+    const result = await store.update('1', { last_name: 'Jobs' });
+
+    expect(result.last_name).toEqual('Jobs');
+  });
+
+  it('1.10 authenticate method should be true', async function (): Promise<void> {
     const result = await store.authenticate('ivanepou', test_pass);
     if (result) {
       expect(result.username).toEqual('ivanepou');
