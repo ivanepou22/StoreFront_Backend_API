@@ -1,4 +1,4 @@
-CREATE TYPE Status AS ENUM ('pending', 'completed');
+CREATE TYPE Status AS ENUM ('active', 'complete');
 CREATE TABLE orders (
     id SERIAL PRIMARY KEY,
     status Status,

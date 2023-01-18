@@ -19,7 +19,7 @@ export class OrderProductStore {
     try {
       const order = await orderStor.show(orderId as unknown as string);
 
-      if (order.status == 'completed')
+      if (order.status == 'complete')
         throw new Error(
           `Could not add product ${productId} to a completed order ${orderId}.`
         );
