@@ -1,54 +1,132 @@
 # Storefront Backend Project
 
-## Getting Started
+The company stakeholders want to create an online storefront to showcase their great product ideas. Users need to be able to browse an index of all products, see the specifics of a single product, and add products to an order that they can view in a cart page. I have been tasked with building the API that will support this application, and your coworker is building the frontend.
 
-This repo contains a basic Node and Express app to get you started in constructing an API. To get started, clone this repo and run `yarn` in your terminal at the project root.
+## Project setup
 
-## Required Technologies
-Your application must make use of the following libraries:
-- Postgres for the database
-- Node/Express for the application logic
-- dotenv from npm for managing environment variables
-- db-migrate from npm for migrations
-- jsonwebtoken from npm for working with JWTs
-- jasmine from npm for testing
+First, clone this repo:
 
-## Steps to Completion
+```bash
+git clone https://github.com/ivanepou22/StoreFront_Backend_API.git
+```
 
-### 1. Plan to Meet Requirements
+### Ports
 
-In this repo there is a `REQUIREMENTS.md` document which outlines what this API needs to supply for the frontend, as well as the agreed upon data shapes to be passed between front and backend. This is much like a document you might come across in real life when building or extending an API. 
+Our database will be running on the default port 5432 and our webServer will be running on port 3000
 
-Your first task is to read the requirements and update the document with the following:
-- Determine the RESTful route for each endpoint listed. Add the RESTful route and HTTP verb to the document so that the frontend developer can begin to build their fetch requests.    
-**Example**: A SHOW route: 'blogs/:id' [GET] 
+## 1. DB Creation and Migrations
 
-- Design the Postgres database tables based off the data shape requirements. Add to the requirements document the database tables and columns being sure to mark foreign keys.   
-**Example**: You can format this however you like but these types of information should be provided
-Table: Books (id:varchar, title:varchar, author:varchar, published_year:varchar, publisher_id:string[foreign key to publishers table], pages:number)
+### (i) Dev Database
 
-**NOTE** It is important to remember that there might not be a one to one ratio between data shapes and database tables. Data shapes only outline the structure of objects being passed between frontend and API, the database may need multiple tables to store a single shape. 
+#### In a terminal tab, create and run the database:
 
-### 2.  DB Creation and Migrations
+1. switch to the postgres user
 
-Now that you have the structure of the databse outlined, it is time to create the database and migrations. Add the npm packages dotenv and db-migrate that we used in the course and setup your Postgres database. If you get stuck, you can always revisit the database lesson for a reminder. 
+```bash
+su postgres
+```
 
-You must also ensure that any sensitive information is hashed with bcrypt. If any passwords are found in plain text in your application it will not pass.
+2. start psql
 
-### 3. Models
+```bash
+psql postgres
+```
 
-Create the models for each database table. The methods in each model should map to the endpoints in `REQUIREMENTS.md`. Remember that these models should all have test suites and mocks.
+3. in psql run the following:
+   ```sql
+   CREATE USER udacity WITH PASSWORD '1234udacity';
+   ```
+   ```sql
+   CREATE DATABASE store_front;
+   ```
+   ```sql
+   \c store_front
+   ```
+   ```sql
+   GRANT ALL PRIVILEGES ON DATABASE store_front TO udacity;
+   ```
 
-### 4. Express Handlers
+### () Test Database
 
-Set up the Express handlers to route incoming requests to the correct model method. Make sure that the endpoints you create match up with the enpoints listed in `REQUIREMENTS.md`. Endpoints must have tests and be CORS enabled. 
+#### In a terminal tab, create and run the database:
 
-### 5. JWTs
+1. switch to the postgres database
 
-Add JWT functionality as shown in the course. Make sure that JWTs are required for the routes listed in `REQUIUREMENTS.md`.
+```bash
+\c postgres
+```
 
-### 6. QA and `README.md`
+2. run the following:
+   ```sql
+   CREATE DATABASE store_front_test;
+   ```
+   ```sql
+   \c store_front_test
+   ```
+   ```sql
+   GRANT ALL PRIVILEGES ON DATABASE store_front_test TO udacity;
+   ```
 
-Before submitting, make sure that your project is complete with a `README.md`. Your `README.md` must include instructions for setting up and running your project including how you setup, run, and connect to your database. 
+## (ii) Now you need to install the dependencies for the project.
 
-Before submitting your project, spin it up and test each endpoint. If each one responds with data that matches the data shapes from the `REQUIREMENTS.md`, it is ready for submission!
+### Set up the dependencies
+
+```bash
+npm install
+```
+
+### Lint the code using Eslint
+
+```bash
+npm run lint
+```
+
+### Format the code using Prettier
+
+```bash
+npm run format
+```
+
+### Install DB Migrate
+
+Make sure you exit psql and run this command
+
+```bash
+npm install -g db-migrate
+```
+
+```bash
+npm install -g db-migrate-pg
+```
+
+### () Run DB Migrate
+
+Run the following command
+
+```bash
+db-migrate up
+```
+
+### () Run DB Migrate down
+
+Run the following command to reverse the migrations above.
+
+```bash
+    db-migrate down
+```
+
+### () Run Unit Tests
+
+Run the following command
+
+```
+npm run test
+```
+
+### () Startup the server
+
+Run the following command
+
+```
+npm run start
+```
