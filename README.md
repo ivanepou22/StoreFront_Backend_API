@@ -130,3 +130,28 @@ Run the following command
 ```
 npm run start
 ```
+
+### () Add environment variables
+
+1. Create the .env file:
+
+```env
+#Dev Database
+PORT = 3000
+POSTGRES_HOST=127.0.0.1
+POSTGRES_DB=store_front
+POSTGRES_USER=udacity
+POSTGRES_PASSWORD=Vision2301
+TEST_PASSWORD=1234ivan
+
+#Test Database
+POSTGRES_TEST_DB=store_front_test
+
+#environment
+ENV=test
+
+#Secrets
+BCRYPT_PASSWORD=5425785wue44r15e8
+SALT_ROUNDS=10
+TOKEN_SECRET=dhd93hd9d89d12d2f3
+```
