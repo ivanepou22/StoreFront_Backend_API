@@ -1,5 +1,5 @@
 {
-  "cSpell.words": ["Dyron", "dyronepou", "Epou", "ivanepou"],
+  "cSpell.words": ["Dyron", "dyronepou", "Epou", "ivanepou", "VARCHAR"],
   // START: Settings for Eslint and Prettier
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
