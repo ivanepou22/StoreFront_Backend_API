@@ -57,8 +57,8 @@ export class ProductStore {
 
   async update(id: string, p: ProductUpdate): Promise<ProductUpdate> {
     try {
-      let updates: string[] = [];
-      let values: (string | number)[] = [];
+      const updates: string[] = [];
+      const values: (string | number)[] = [];
 
       if (p.name) {
         updates.push(`name = $${values.length + 1}`);

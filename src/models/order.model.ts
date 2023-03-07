@@ -18,7 +18,7 @@ export class OrderStore {
       const sql = 'SELECT * FROM orders';
       const result = await client.query(sql);
       const orders = result.rows;
-      return result.rows;
+      return orders;
     } catch (err) {
       throw new Error(`Cannot get Orders ${err}`);
     }
@@ -59,8 +59,8 @@ export class OrderStore {
 
   async update(id: string, o: OrderUpdate): Promise<OrderUpdate> {
     try {
-      let updates: string[] = [];
-      let values: (string | number)[] = [];
+      const updates: string[] = [];
+      const values: (string | number)[] = [];
 
       if (o.status) {
         updates.push(`status = $${values.length + 1}`);
